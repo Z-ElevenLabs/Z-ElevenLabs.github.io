@@ -192,7 +192,7 @@
             
             // Build the URL with the fixed parameters and user input
             const baseUrl = "https://app.exemptax.com/ecommerce-drop";
-            const url = `${baseUrl}?integration_type=custom&company_id=214759&customer_id=${encodeURIComponent(stripeId)}&customer_id_type=external&customer_email=${encodeURIComponent(email)}`;
+            const url = `${baseUrl}?integration_type=custom&company_id=214759&customer_id=${stripeId}&customer_id_type=external&customer_email=${email}`;
             
             // Display the URL
             document.getElementById("generated-url").value = url;
