@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Hacks Website</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f8fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        /* Main Page Styles */
+        .main-page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .main-footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Tax Exempt Form Page Styles */
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            margin: 50px auto;
+        }
+        
+        .form-page h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #445;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .form-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        #result-container {
+            display: none;
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        
+        #generated-url {
+            width: 100%;
+            padding: 12px 15px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            word-break: break-all;
+            background-color: white;
+            resize: none;
+            height: 100px;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            background-color: #27ae60;
+        }
+        
+        .copy-btn:hover {
+            background-color: #219653;
+        }
+        
+        
+        .success-message {
+            color: #27ae60;
+            text-align: center;
+            margin-top: 5px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .back-button {
+            background-color: #95a5a6;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background-color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Home Page -->
+    <div id="home-page" class="page active-page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo" onclick="showPage('home-page'); return false;">MyWebsite</a>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home-page'); return false;">Home</a></li>
+                    <li><a href="#" onclick="showPage('taxexempt-page'); return false;">Tax Exemption</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="hero">
+            <h1>Welcome to Zac's Work Hacks</h1>
+            <p>Making work easier for you</p>
+            <a href="#" class="cta-button" onclick="showPage('taxexempt-page'); return false;">Create Tax Exemption Link</a>
+        </div>
+        
+        <div class="main-page-content">
+            <h2></h2>
+            <p></p>
+            
+            <!-- Add more content here as needed -->
+        </div>
+        
+        <footer class="main-footer">
+            <p>&copy; 2023 Zac's Work Hacks All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <!-- Tax Exemption Page -->
+    <div id="taxexempt-page" class="page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo" onclick="showPage('home-page'); return false;">MyWebsite</a>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home-page'); return false;">Home</a></li>
+                    <li><a href="#" onclick="showPage('taxexempt-page'); return false;">Tax Exemption</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="form-container">
+            <div class="form-logo">
+                <h2>ExempTax</h2>
+            </div>
+            
+            <h1>Tax Exemption Form</h1>
+            
+            <form id="exemptaxForm">
+                <div class="form-group">
+                    <label for="customer_id">Stripe ID</label>
+                    <input 
+                        type="text" 
+                        id="customer_id" 
+                        name="customer_id" 
+                        placeholder="Enter your Stripe ID" 
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="customer_email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="customer_email" 
+                        name="customer_email" 
+                        placeholder="Enter your email address" 
+                        required
+                    >
+                </div>
+                
+                <button type="submit">Generate URL</button>
+            </form>
+            
+            <div id="result-container">
+                <h3>Generated URL:</h3>
+                <textarea id="generated-url" readonly></textarea>
+                <button id="copy-btn" class="copy-btn">Copy URL</button>
+                <p id="copy-success" class="success-message">URL copied to clipboard!</p>
+            </div>
+            
+            <button class="back-button" onclick="showPage('home-page')">Back to Home</button>
+            
+            <div class="form-footer">
+                
+            </div>
+        </div>
+        
+        <footer class="main-footer">
+            <p>&copy; 2023 Zac's Work Hacks All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Function to show a specific page and hide others
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Scroll to top when changing pages
+            window.scrollTo(0, 0);
+        }
+        
+        // Handle form submission for tax exemption
+        document.getElementById("exemptaxForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const stripeId = document.getElementById("customer_id").value.trim();
+            const email = document.getElementById("customer_email").value.trim();
+            
+            // Build the URL with the fixed parameters and user input
+            const baseUrl = "https://app.exemptax.com/ecommerce-drop";
+            
+            // Encode email and then replace %40 with @ symbol
+            let encodedEmail = encodeURIComponent(email);
+            encodedEmail = encodedEmail.replace(/%40/g, '@');
+            
+            const url = `${baseUrl}?integration_type=custom&company_id=214759&customer_id=${encodeURIComponent(stripeId)}&customer_id_type=external&customer_email=${encodedEmail}`;
+            
+            // Display the URL
+            document.getElementById("generated-url").value = url;
+            document.getElementById("result-container").style.display = "block";
+            
+            // Scroll to results
+            document.getElementById("result-container").scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Handle copy button click
+        document.getElementById("copy-btn").addEventListener("click", function() {
+            const urlField = document.getElementById("generated-url");
+            
+            // Select and copy the text
+            urlField.select();
+            document.execCommand("copy");
+            
+            // Show success message
+            const successMsg = document.getElementById("copy-success");
+            successMsg.style.display = "block";
+            
+            // Hide success message after 3 seconds
+            setTimeout(function() {
+                successMsg.style.display = "none";
+            }, 3000);
+        });
+        
+        // Handle visit button click
+        document.getElementById("visit-btn").addEventListener("click", function() {
+            const url = document.getElementById("generated-url").value;
+            window.open(url, '_blank');
+        });
+        
+        // Check if there's a hash in the URL to determine which page to show
+        function checkUrlHash() {
+            if (window.location.hash === '#taxexempt') {
+                showPage('taxexempt-page');
+            } else {
+                showPage('home-page');
+            }
+        }
+        
+        // Check hash on page load
+        window.addEventListener('load', checkUrlHash);
+        
+        // Check hash when it changes
+        window.addEventListener('hashchange', checkUrlHash);
+    </script>
+</body>
+</html>
